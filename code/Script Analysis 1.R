@@ -168,14 +168,13 @@ dat.long$id <- as.factor(dat.long$id)              # convert id into a factor
 
 # (a) DiD - Fixed Effects Model
 summary(lm(math ~ -1 + time + T:time + id, dat.long))
-# summary(lm(math ~ -1 + time + I(T*time) + id, dat.long))   # alternative
+summary(lm(math ~ -1 + time + I(T*time) + id, dat.long))   # alternative
 
 # alternative specifications in R (with multicollinearities/singularities)
-summary(out <- lm(math ~ T + time + T:time + id, dat.long))  # id1 dropped / id999 NA
-alias(out)                                         # check aliasing structure
+summary(out1 <- lm(math ~ T + time + T:time + id, dat.long))  # id1 dropped / id999 NA
+alias(out1)                                         # check aliasing structure
 
 summary(lm(math ~ time + T:time + id, dat.long))   # id1 dropped
-# no aliasing because R assumes you know what the meaning of the intercept is
 
 # with time-constant covariates (note the interaction term!)
 summary(lm(math ~ -1 + time + T:time + SES:time + id, dat.long))
@@ -205,5 +204,4 @@ summary(lm(Y ~ T + P.Tc + T:P.Tc, data))
 summary(lm(Y ~ T + P.Tc + SES.Tc + T:P.Tc + T:SES.Tc, data))
 
 
-data <- data[sample(1:nrow(data), 300), ]
 
