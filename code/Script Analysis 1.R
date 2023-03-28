@@ -154,7 +154,6 @@ summary(lm(I(Y - P) ~ T + SES, data))    # with covariate (DO NOT include P!)
 
 #5) Difference-in-Differences (DiD) Estimator
 
-# transform data into long format (i.e., two rows for each student) 
 dat.long <- reshape(data, 
                     direction = 'long',
                     varying = list(c('P', 'Y')),
